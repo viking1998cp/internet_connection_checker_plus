@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class ListenOnce extends StatefulWidget {
-  const ListenOnce({super.key});
+  const ListenOnce({Key? key}) : super(key: key);
 
   @override
   State<ListenOnce> createState() => _ListenOnceState();

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class ListenToStream extends StatefulWidget {
-  const ListenToStream({super.key});
+  const ListenToStream({Key? key}) : super(key: key);
 
   @override
   State<ListenToStream> createState() => _ListenToStreamState();

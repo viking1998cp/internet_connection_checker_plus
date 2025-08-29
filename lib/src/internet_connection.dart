@@ -95,13 +95,17 @@ class InternetConnection {
 
   /// The default list of [Uri]s used for checking internet reachability.
   final List<InternetCheckOption> _defaultCheckOptions = [
-    InternetCheckOption(uri: Uri.parse('https://one.one.one.one')),
-    InternetCheckOption(uri: Uri.parse('https://icanhazip.com/')),
+    InternetCheckOption(
+        uri: Uri.parse('https://one.one.one.one'), method: Method.head),
+    InternetCheckOption(
+        uri: Uri.parse('https://icanhazip.com/'), method: Method.head),
     InternetCheckOption(
       uri: Uri.parse('https://jsonplaceholder.typicode.com/todos/1'),
+      method: Method.head,
     ),
     InternetCheckOption(
       uri: Uri.parse('https://pokeapi.co/api/v2/ability/?limit=1'),
+      method: Method.head,
     ),
   ];
 
@@ -140,16 +144,30 @@ class InternetConnection {
   /// whether the host is reachable or not.
   Future<InternetCheckResult> _checkReachabilityFor(
     InternetCheckOption option,
+    Method method,
   ) async {
     try {
-      final response = await http
-          .head(option.uri, headers: option.headers)
-          .timeout(option.timeout);
+      if (method == Method.head) {
+        final response = await http
+            .head(option.uri, headers: option.headers)
+            .timeout(option.timeout);
 
-      return InternetCheckResult(
-        option: option,
-        isSuccess: option.responseStatusFn(response),
-      );
+        return InternetCheckResult(
+          option: option,
+          isSuccess: option.responseStatusFn(response),
+        );
+      } else if (method == Method.get) {
+        final response = await http
+            .get(option.uri, headers: option.headers)
+            .timeout(option.timeout);
+        return InternetCheckResult(
+          option: option,
+          isSuccess: option.responseStatusFn(response),
+        );
+      }
+      else {
+        throw Exception('Invalid method: $method');
+      }
     } catch (_) {
       return InternetCheckResult(
         option: option,
@@ -181,7 +199,7 @@ class InternetConnection {
 
     for (final option in _internetCheckOptions) {
       unawaited(
-        _checkReachabilityFor(option).then((result) {
+        _checkReachabilityFor(option, Method.head).then((result) {
           if (result.isSuccess) {
             successCount += 1;
           }

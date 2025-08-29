@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class CustomURIs extends StatefulWidget {
-  const CustomURIs({super.key});
+  const CustomURIs({Key? key}) : super(key: key);
 
   @override
   State<CustomURIs> createState() => _CustomURIsState();
@@ -23,24 +23,29 @@ class _CustomURIsState extends State<CustomURIs> {
     super.initState();
     _subscription = InternetConnection.createInstance(
       customCheckOptions: [
-        InternetCheckOption(uri: Uri.parse('https://ipapi.co/ip')),
+        InternetCheckOption(uri: Uri.parse('https://ipapi.co/ip'), method: Method.head),
         InternetCheckOption(
           uri: Uri.parse('https://api.adviceslip.com/advice'),
+          method: Method.head,
         ),
         InternetCheckOption(
           uri: Uri.parse('https://api.bitbucket.org/2.0/repositories'),
+          method: Method.head,
         ),
         InternetCheckOption(
           uri: Uri.parse('https://api.thecatapi.com/v1/images/search'),
+          method: Method.head,
         ),
         InternetCheckOption(
           uri: Uri.parse('https://randomuser.me/api/?inc=gender'),
+          method: Method.head,
         ),
         InternetCheckOption(
           uri: Uri.parse('https://dog.ceo/api/breed/husky/list'),
+          method: Method.head,
         ),
-        InternetCheckOption(uri: Uri.parse('https://lenta.ru')),
-        InternetCheckOption(uri: Uri.parse('https://www.gazeta.ru')),
+        InternetCheckOption(uri: Uri.parse('https://lenta.ru'), method: Method.head),
+        InternetCheckOption(uri: Uri.parse('https://www.gazeta.ru'), method: Method.head),
       ],
       useDefaultOptions: false,
     ).onStatusChange.listen((status) {

@@ -3,6 +3,12 @@ part of '../internet_connection_checker_plus.dart';
 /// A Callback Function to decide whether the request succeeded or not.
 typedef ResponseStatusFn = bool Function(http.Response response);
 
+enum Method {
+  head,
+  get,
+
+}
+
 /// Options for checking the internet connectivity to an address.
 ///
 /// This class provides a way to specify options for checking the connectivity
@@ -56,6 +62,7 @@ class InternetCheckOption {
     required this.uri,
     this.timeout = const Duration(seconds: 3),
     this.headers = const {},
+    required Method method,
     ResponseStatusFn? responseStatusFn,
   }) : responseStatusFn = responseStatusFn ?? defaultResponseStatusFn;
 

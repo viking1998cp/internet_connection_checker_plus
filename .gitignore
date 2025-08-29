@@ -32,3 +32,6 @@ build/
 
 # Development Scripts
 scripts/
+
+# FVM Version Cache
+.fvm/

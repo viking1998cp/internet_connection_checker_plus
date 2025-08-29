@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class CustomSuccessCriteria extends StatefulWidget {
-  const CustomSuccessCriteria({super.key});
+  const CustomSuccessCriteria({Key? key}) : super(key: key);
 
   @override
   State<CustomSuccessCriteria> createState() => _CustomSuccessCriteriaState();
@@ -25,6 +25,7 @@ class _CustomSuccessCriteriaState extends State<CustomSuccessCriteria> {
       customCheckOptions: [
         InternetCheckOption(
           uri: Uri.parse('https://img.shields.io/pub/'),
+          method: Method.head,
           responseStatusFn: (response) {
             return response.statusCode == 404;
           },
