@@ -23,29 +23,17 @@ class _CustomURIsState extends State<CustomURIs> {
     super.initState();
     _subscription = InternetConnection.createInstance(
       customCheckOptions: [
-        InternetCheckOption(uri: Uri.parse('https://ipapi.co/ip'), method: Method.head),
         InternetCheckOption(
-          uri: Uri.parse('https://api.adviceslip.com/advice'),
-          method: Method.head,
+          uri: Uri.parse(
+              'https://dev-api-insurance.baohiemtasco.vn/claim-ai/health'),
+          method: Method.get,
+          responseStatusFn: (response) {
+            return response.statusCode >= 200 && response.statusCode < 300;
+
+            // return true;
+            // return false;
+          },
         ),
-        InternetCheckOption(
-          uri: Uri.parse('https://api.bitbucket.org/2.0/repositories'),
-          method: Method.head,
-        ),
-        InternetCheckOption(
-          uri: Uri.parse('https://api.thecatapi.com/v1/images/search'),
-          method: Method.head,
-        ),
-        InternetCheckOption(
-          uri: Uri.parse('https://randomuser.me/api/?inc=gender'),
-          method: Method.head,
-        ),
-        InternetCheckOption(
-          uri: Uri.parse('https://dog.ceo/api/breed/husky/list'),
-          method: Method.head,
-        ),
-        InternetCheckOption(uri: Uri.parse('https://lenta.ru'), method: Method.head),
-        InternetCheckOption(uri: Uri.parse('https://www.gazeta.ru'), method: Method.head),
       ],
       useDefaultOptions: false,
     ).onStatusChange.listen((status) {
@@ -81,9 +69,9 @@ class _CustomURIsState extends State<CustomURIs> {
               _connectionStatus == null
                   ? const CircularProgressIndicator.adaptive()
                   : Text(
-                    _connectionStatus.toString(),
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
+                      _connectionStatus.toString(),
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
             ],
           ),
         ),

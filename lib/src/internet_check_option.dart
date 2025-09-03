@@ -58,11 +58,13 @@ class InternetCheckOption {
   ///   },
   /// );
   /// ```
+  /// 
+  
   InternetCheckOption({
     required this.uri,
     this.timeout = const Duration(seconds: 3),
     this.headers = const {},
-    required Method method,
+    required  this.method,
     ResponseStatusFn? responseStatusFn,
   }) : responseStatusFn = responseStatusFn ?? defaultResponseStatusFn;
 
@@ -97,6 +99,8 @@ class InternetCheckOption {
   /// requests are being blocked, open the **Network tab** in your browser's
   /// developer tools and see if the request is being blocked by _CORS_.
   final Uri uri;
+
+  final Method method;
 
   /// The duration after the HEAD request should be timed out.
   ///

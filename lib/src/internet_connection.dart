@@ -199,7 +199,7 @@ class InternetConnection {
 
     for (final option in _internetCheckOptions) {
       unawaited(
-        _checkReachabilityFor(option, Method.head).then((result) {
+        _checkReachabilityFor(option, option.method).then((result) {
           if (result.isSuccess) {
             successCount += 1;
           }
