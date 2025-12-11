@@ -96,17 +96,12 @@ class InternetConnection {
   /// The default list of [Uri]s used for checking internet reachability.
   final List<InternetCheckOption> _defaultCheckOptions = [
     InternetCheckOption(
-        uri: Uri.parse('https://one.one.one.one'), method: Method.head),
-    InternetCheckOption(
-        uri: Uri.parse('https://icanhazip.com/'), method: Method.head),
-    InternetCheckOption(
-      uri: Uri.parse('https://jsonplaceholder.typicode.com/todos/1'),
-      method: Method.head,
-    ),
-    InternetCheckOption(
-      uri: Uri.parse('https://pokeapi.co/api/v2/ability/?limit=1'),
-      method: Method.head,
-    ),
+        uri: Uri.parse('https://api-insurance.baohiemtasco.vn/claim-ai/health'),
+        method: Method.get,
+        responseStatusFn: (response) {
+          return response.statusCode >= 200 && response.statusCode < 300;
+        },
+      ),
   ];
 
   /// The list of [Uri]s used for checking internet reachability.
